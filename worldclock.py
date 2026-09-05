@@ -18,6 +18,7 @@ CLOCKS = [
     ("UK", "LONDON", ZoneInfo("Europe/London")),
     ("SERBIA", "BELGRADE", ZoneInfo("Europe/Belgrade")),
     ("INDIA", "NEW DELHI", ZoneInfo("Asia/Kolkata")),
+    ("UTC", "COORDINATED", ZoneInfo("UTC")),
 ]
 
 WHITE = (238, 244, 250)
@@ -118,7 +119,9 @@ def run():
                 if minute != last_minute:
                     display[:] = rgb565_bytes(render(now))
                     last_minute = minute
-                time.sleep(0.05)
+                # Bound the wait to notice clock corrections and remain responsive.
+                # Recalculate after rendering, which takes time on a Pi Zero.
+                time.sleep(min(5.0, max(0.05, 60.0 - time.time() % 60.0)))
     return 0
 
 
