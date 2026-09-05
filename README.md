@@ -8,7 +8,7 @@ A lightweight, full-screen world clock designed for a Raspberry Pi Zero W and a 
 ## Display
 
 - Large Central Time clock and date
-- Pacific, Eastern, UK, Serbia, and India clocks
+- Pacific, Eastern, UK, Serbia, India, and UTC clocks
 - Automatic daylight-saving handling through the system time-zone database
 - Local date and relative-day indicator for every secondary location
 - Slow six-hour color cycle to reduce static-color image retention
@@ -31,10 +31,12 @@ It can be adapted to other resolutions by changing `WIDTH`, `HEIGHT`, and the la
 Clone the repository on the Pi, then run:
 
 ```bash
-sudo ./install.sh
+sudo sh ./install.sh
 ```
 
 The installer adds the required Debian packages, installs the application under `/opt/pi-world-clock`, creates a systemd service for the invoking user, and starts the display.
+
+Run the installer again after pulling updates. It restarts the clock and checks for immediate startup failures. Console controls are sent to the display terminal while application logs remain in the journal. Between minute updates, the clock sleeps for up to five seconds and recalculates its wait to handle system-clock corrections.
 
 Check its status with:
 
@@ -62,5 +64,5 @@ Time zones use standard IANA identifiers in `CLOCKS`. Change `FOCUS` to promote 
 ## Uninstall
 
 ```bash
-sudo ./uninstall.sh
+sudo sh ./uninstall.sh
 ```
