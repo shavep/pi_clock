@@ -9,7 +9,7 @@ User=__USER__
 SupplementaryGroups=video render input
 WorkingDirectory=/opt/pi-world-clock
 Environment=PYTHONUNBUFFERED=1
-ExecStartPre=/usr/bin/setterm --blank 0 --powersave off --cursor off
+ExecStartPre=/bin/sh -c 'TERM=linux /usr/bin/setterm --blank 0 --powersave off --cursor off >&0'
 ExecStart=/usr/bin/python3 /opt/pi-world-clock/worldclock.py
 Restart=always
 RestartSec=3
